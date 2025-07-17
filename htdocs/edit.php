@@ -5,10 +5,6 @@ $db = mysqli_connect(
     "ednapass",
     "moviesite"
 );
-if($_GET["action"] == "delete"){
-    header("Location: delete.php?id=" . $_GET['id']);
-    exit();
-}
 $sql = "
     SELECT 
         movie_name, movie_year, movie_type, movie_leadactor, movie_director
@@ -17,8 +13,7 @@ $sql = "
     WHERE
         movie_id=" . $_GET['id'];
 $result = mysqli_query($db, $sql);
-$movieRow = mysqli_fetch_array($result);
-print_r($movieRow);
+$movieRow = mysqli_fetch_assoc($result);
 ?>
 
 <html>
@@ -31,7 +26,7 @@ print_r($movieRow);
                 <tr>
                     <td>Movie Name</td>
                     <td>
-                        <input type="text" name="movie_name" value=<?php echo $movieRow['movie_name']?>/>
+                        <input type="text" name="movie_name" value=<?php echo $movieRow['movie_name'];?>/>
                     </td>
                 </tr>
                 <tr>
@@ -49,8 +44,8 @@ print_r($movieRow);
                                 ";
                                 $result = mysqli_query($db,$sql) or die(mysqli_error($db));
                                 while($row = mysqli_fetch_array($result)){
-                                    $selected = ($row["movietype_id"] == $movieRow["movie_type"]) ? "selected" : "";
-                                    echo '<option value="' . $row['movietype_id'] . '"' . $selected . '>';
+                                    $selected = ($movieRow['movie_type'] == $row['movietype_id']) ? 'selected' : '';
+                                    echo '<option value="' . $row['movietype_id'] . '" ' . $selected . '>';
                                     echo $row['movietype_label'] . '</option>';
                                 }
                             ?>
@@ -63,7 +58,7 @@ print_r($movieRow);
                         <select name="movie_year">
                             <?php 
                                 for ($yr = date('Y'); $yr >= 1970 ; $yr--) {
-                                    $selected = ($yr == $movieRow["movie_year"]) ? "selected" : "";
+                                    $selected = ($yr == $movieRow['movie_year']) ? 'selected' : '';
                                     echo '<option value="' . $yr . '" ' . $selected . '>' . $yr . '</option>';
                                 }
                             ?>
@@ -88,8 +83,8 @@ print_r($movieRow);
                             ';
                             $result = mysqli_query($db,$sql) or die(mysqli_error($db));
                             while($row = mysqli_fetch_array($result)){
-                                $selected = ($row["people_id"] == $movieRow["movie_leadactor"]) ? "selected" : "";
-                                echo '<option value="' . $row['people_id'] . '"' . $selected . '>';
+                                $selected = ($row['movie_leadactor'] == $row[''])  ? 'selected' : '';
+                                echo '<option value="' . $row['people_id'] . '"'. $selected .'>';
                                 echo $row['people_fullname'] . '</option>';
                             }
                             ?>
@@ -114,7 +109,7 @@ print_r($movieRow);
                             ';
                             $result = mysqli_query($db,$sql) or die(mysqli_error($db));
                             while($row = mysqli_fetch_array($result)){
-                                $selected = ($row["people_id"] == $movieRow["movie_director"]) ? "selected" : "";
+                                $selected = ($movieRow['movie_director'] == $row['movie_director'])  ? 'selected' : '';
                                 echo '<option value="' . $row['people_id'] . '"' . $selected . '>';
                                 echo $row['people_fullname'] . '</option>';
                             }
@@ -124,7 +119,7 @@ print_r($movieRow);
                 </tr>
                 <tr>
                     <td>
-                        <input type="submit" name="submit" value="Edit"/>
+                        <input type="submit" name="submit" value="Add"/>
                     </td>
                 </tr>
             </table>
