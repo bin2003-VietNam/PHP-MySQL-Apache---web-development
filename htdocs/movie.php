@@ -1,4 +1,5 @@
 <?php
+echo isset($_GET['action']) ? $_GET['action'] : "false" ;
 $db = mysqli_connect(
     "localhost",
     "edna",
@@ -9,29 +10,51 @@ if($_GET["action"] == "delete"){
     header("Location: delete.php?id=" . $_GET['id']);
     exit();
 }
-$sql = "
-    SELECT 
-        movie_name, movie_year, movie_type, movie_leadactor, movie_director
-    FROM 
-        movie
-    WHERE
-        movie_id=" . $_GET['id'];
-$result = mysqli_query($db, $sql);
-$movieRow = mysqli_fetch_array($result);
-print_r($movieRow);
+// tiền xử form nếu action = edit
+if(isset($_GET['id'])){
+    $id = intval($_GET['id']);
+    $sql = "
+        SELECT 
+            movie_name, movie_year, movie_type, movie_leadactor, movie_director
+        FROM 
+            movie
+        WHERE
+            movie_id=" . $id;
+    $result = mysqli_query($db, $sql);
+    $movieRow = mysqli_fetch_array($result);
+    print_r($movieRow);
+}
+
+// kết thúc tiền xử lý form
 ?>
 
 <html>
     <head>
         <title>Add movie</title>
+        <style type="text/css">
+            #error {
+                background-color: #900;
+                border: 1px solid #FF0;
+                color: #FFF;
+                text-align: center;
+                margin: 10px;
+                padding: 10px;
+            }
+        </style>
     </head>
     <body>
-        <form action="commit.php?action=edit&type=movie" method="post">
+        <?php
+        if (isset($_GET['error']) && $_GET['error'] != '') {
+            echo '<div id="error">' . htmlspecialchars($_GET['error']) . '</div>';
+        }
+        ?>
+        <form action="commit.php?&type=movie" method="post">
+            <input type="hidden" name="action" value="<?php echo $_GET['action'];?>"/>
             <table>
                 <tr>
                     <td>Movie Name</td>
                     <td>
-                        <input type="text" name="movie_name" value=<?php echo $movieRow['movie_name']?>/>
+                        <input type="text" name="movie_name" value="<?php echo isset($movieRow['movie_name']) ? $movieRow['movie_name'] : ''; ?>"/>
                     </td>
                 </tr>
                 <tr>
