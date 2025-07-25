@@ -18,7 +18,7 @@
     </style>
 </head>
 <body>
-    <img src="logo.jpg" alt="Comic Book Appreciation Site" style="float: left;" />
+    <img src="./images/2.jpg" alt="Comic Book Appreciation Site" style="float: left; width: 200px; height: 200px;" />
     <h1>Comic Book<br/>Appreciation</h1>
     <h2>Character Database</h2>
     <hr style="clear: both;" />
