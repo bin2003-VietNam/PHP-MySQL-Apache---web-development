@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Restricted Area"
+AuthUserFile "C:/Apache24/userauth"
+Require valid-user

@@ -47,9 +47,12 @@
         $now = (isset($_SERVER['REQUEST_TIME'])) ? $_SERVER['REQUEST_TIME'] : time();
         $page = (isset($_SERVER['REQUEST_URI'])) ? $_SERVER['REQUEST_URI'] : 'unknown';
 
-        $msg = wordwrap('A ' . $_SERVER['QUERY_STRING'] . ' error was encountered on' .
-        date('F d, Y' $now) . ' at ' . date('H:i:sa T', $now) . 'when a ' . ' visitor attempted to view' . 
-        $page . '.');
+        $msg = wordwrap(
+            'A "' . $query . '" error was encountered on ' . 
+            date('F d, Y', $now) . ' at ' . 
+            date('H:i:sa T', $now) . ' when a visitor attempted to view ' . 
+            $page . '.'
+        );
         mail('nguyenvanbin.9a10@gmail.com', 'Error from Website', $msg);
         ?>
     
