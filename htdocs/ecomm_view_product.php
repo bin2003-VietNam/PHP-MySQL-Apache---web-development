@@ -47,7 +47,7 @@ header('Location: ecomm_shop.php');
    <table> 
     <tr> 
      <td rowspan="4">  <img src="images/<?php echo $product_code ?>.jpg"
-      alt=" <?php echo $name; ?> "/>  </td> 
+      alt=" <?php echo $name; ?> " style="width: 50px;height:50px"/>  </td> 
      <td>  <?php echo $description; ?>  </td> 
     </tr>  <tr> 
      <td>  <strong> Product Code: </strong>     <?php echo $product_code; ?>  </td> 

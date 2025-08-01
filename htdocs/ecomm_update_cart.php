@@ -8,7 +8,7 @@ session_start();
 $session = session_id();
                    
 $qty = (isset($_POST['qty'])  &&  ctype_digit($_POST['qty'])) ? $_POST['qty'] : 0;
-$product_code = (isset($_POST['product_code'])) ? $_POST['product_code'] : '';
+$product_code = (isset($_POST['product_code'])) ? trim($_POST['product_code']) : '';
 $action = (isset($_POST['submit'])) ? $_POST['submit'] : '';
 $redirect = (isset($_POST['redirect'])) ? $_POST['redirect'] : 'ecomm_shop.php';
 
